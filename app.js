@@ -11,22 +11,21 @@ document.getElementById('diagnosticReportForm').addEventListener('submit', async
             codeCode: document.getElementById('codeCode').value,
             codeDisplay: document.getElementById('codeDisplay').value,
             subjectReference: document.getElementById('subjectReference').value,
-            effectiveDateTime: document.getElementById('effectiveDateTime').value,
-            issued: document.getElementById('issued').value,
+            effectiveDate: document.getElementById('effectiveDateTime').value, // Cambiado de effectiveDateTime
+            issuedDate: document.getElementById('issued').value, // Cambiado de issued
             performerReference: document.getElementById('performerReference').value,
             resultsInterpreterReference: document.getElementById('resultsInterpreterReference').value,
             conclusion: document.getElementById('conclusion').value
         };
 
-        // Validar fechas
-        if (!formData.effectiveDateTime || !formData.issued) {
+        // Validaciones básicas
+        if (!formData.effectiveDate || !formData.issuedDate) {
             throw new Error("Las fechas de estudio y emisión son requeridas");
         }
 
-        // Formatear fechas a ISO 8601
-        const formatDateTime = (dateTimeStr) => {
-            const date = new Date(dateTimeStr);
-            return date.toISOString();
+        // Función para formatear solo la fecha (sin hora)
+        const formatDateOnly = (dateStr) => {
+            return dateStr; // Ya es YYYY-MM-DD al venir de input type="date"
         };
 
         // Crear objeto DiagnosticReport
@@ -48,8 +47,8 @@ document.getElementById('diagnosticReportForm').addEventListener('submit', async
             subject: {
                 reference: formData.subjectReference
             },
-            effectiveDateTime: formatDateTime(formData.effectiveDateTime),
-            issued: formatDateTime(formData.issued),
+            effectiveDateTime: `${formatDateOnly(formData.effectiveDate)}T00:00:00Z`, // Añade hora mínima
+            issued: `${formatDateOnly(formData.issuedDate)}T00:00:00Z`, // Añade hora mínima
             performer: [{
                 reference: formData.performerReference
             }],
@@ -78,7 +77,7 @@ document.getElementById('diagnosticReportForm').addEventListener('submit', async
         if (!response.ok) {
             const errorData = await response.json();
             console.error("Detalles del error:", errorData);
-            throw new Error(`Error ${response.status}: ${errorData.message || 'Error al enviar el informe'}`);
+            throw new Error(`Error ${response.status}: ${errorData.message || JSON.stringify(errorData)}`);
         }
 
         const data = await response.json();
