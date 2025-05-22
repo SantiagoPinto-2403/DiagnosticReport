@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe Diagnóstico</title>
+    <title>Registro de Informe Diagnóstico</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,49 +71,53 @@
 </head>
 <body>
     <div class="container">
-        <h1>Informe Diagnóstico</h1>
+        <h1>Registro de Informe Diagnóstico</h1>
         <form id="diagnosticReportForm">
             <label for="identifierSystem">Sistema de Identificación:</label>
-            <select id="identifierSystem" required>
-                <option value="http://hospital.sistema/informe">Sistema Hospitalario</option>
-                <option value="http://laboratorio.sistema/informe">Sistema Laboratorio</option>
-            </select>
-            
+            <input type="text" id="identifierSystem" value="http://hospital.sistema/informe" required>
+
             <label for="identifierValue">Número de Informe:</label>
-            <input type="text" id="identifierValue" required>
-            
+            <input type="text" id="identifierValue" placeholder="LAB20230515001" required>
+
             <label for="status">Estado del Informe:</label>
             <select id="status" required>
-                <option value="final">Final</option>
+                <option value="registered">Registrado</option>
                 <option value="preliminary">Preliminar</option>
+                <option value="final" selected>Final</option>
                 <option value="amended">Modificado</option>
-                <option value="cancelled">Cancelado</option>
+                <option value="corrected">Corregido</option>
             </select>
-            
-            <label for="codeSystem">Sistema de Codificación:</label>
-            <select id="codeSystem" required>
-                <option value="http://loinc.org">LOINC</option>
-                <option value="http://snomed.info/sct">SNOMED CT</option>
-            </select>
-            
-            <label for="codeCode">Código del Estudio:</label>
-            <input type="text" id="codeCode" placeholder="Ej: 58410-2" required>
-            
+
+            <label for="codeSystem">Sistema de Código:</label>
+            <input type="text" id="codeSystem" value="http://loinc.org" required>
+
+            <label for="codeCode">Código LOINC:</label>
+            <input type="text" id="codeCode" placeholder="58410-2" required>
+
             <label for="codeDisplay">Descripción del Estudio:</label>
-            <input type="text" id="codeDisplay" placeholder="Ej: Hemograma completo" required>
-            
-            <label for="subjectReference">ID del Paciente:</label>
-            <input type="text" id="subjectReference" placeholder="Patient/12345" required>
-            
-            <label for="performerReference">ID del Profesional:</label>
-            <input type="text" id="performerReference" placeholder="Practitioner/54321" required>
-            
+            <input type="text" id="codeDisplay" placeholder="Hemograma completo" required>
+
+            <label for="subjectReference">Paciente (Referencia):</label>
+            <input type="text" id="subjectReference" placeholder="Patient/123" required>
+
+            <label for="effectiveDateTime">Fecha/Hora del Estudio:</label>
+            <input type="datetime-local" id="effectiveDateTime" required>
+
+            <label for="issued">Fecha/Hora de Emisión:</label>
+            <input type="datetime-local" id="issued" required>
+
+            <label for="performerReference">Realizado por (Referencia):</label>
+            <input type="text" id="performerReference" placeholder="Practitioner/456" required>
+
+            <label for="resultsInterpreterReference">Interpretado por (Referencia):</label>
+            <input type="text" id="resultsInterpreterReference" placeholder="Practitioner/456">
+
             <label for="conclusion">Conclusión/Interpretación:</label>
-            <textarea id="conclusion" required></textarea>
-            
-            <button type="submit">Generar Informe</button>
+            <textarea id="conclusion" placeholder="Los resultados muestran..."></textarea>
+
+            <button type="submit">Registrar Informe</button>
         </form>
     </div>
-    <script scr="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

@@ -8,7 +8,10 @@ document.getElementById('diagnosticReportForm').addEventListener('submit', funct
     const codeCode = document.getElementById('codeCode').value;
     const codeDisplay = document.getElementById('codeDisplay').value;
     const subjectReference = document.getElementById('subjectReference').value;
+    const effectiveDateTime = document.getElementById('effectiveDateTime').value;
+    const issued = document.getElementById('issued').value;
     const performerReference = document.getElementById('performerReference').value;
+    const resultsInterpreterReference = document.getElementById('resultsInterpreterReference').value;
     const conclusion = document.getElementById('conclusion').value;
 
     const diagnosticReport = {
@@ -29,8 +32,13 @@ document.getElementById('diagnosticReportForm').addEventListener('submit', funct
         subject: {
             reference: subjectReference
         },
+        effectiveDateTime: effectiveDateTime,
+        issued: issued,
         performer: [{
             reference: performerReference
+        }],
+        resultsInterpreter: [{
+            reference: resultsInterpreterReference
         }],
         conclusion: conclusion
     };
